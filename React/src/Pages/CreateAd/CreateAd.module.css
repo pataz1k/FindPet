@@ -1,0 +1,36 @@
+.wrap {
+    background: #fff;
+    border-radius: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 50vh;
+    padding: 79px 57px;
+}
+.lostPet {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.input {
+    height: 35px;
+    background: #E4E4E4;
+    border: none;
+    border-radius: 13px;
+    padding: 0 20px;
+    
+}
+.input:focus {
+    outline: none !important;
+}
+.p {
+    color: #000;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 16px;
+    margin-top: 0;
+}
+.masked_input{
+    display: flex;
+    flex-direction: column;
+}

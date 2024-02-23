@@ -1,0 +1,37 @@
+.item {
+  display: flex;
+  padding: 5px;
+  gap: 20px;
+  width: 100%;
+  background-color: #fff;
+  border-radius:17px ;
+  box-shadow: 0px 0px 14px 0px rgba(34, 59, 79, 0.2);
+  transition: all .3s ease;
+  cursor: pointer;
+}
+.item:hover {
+  box-shadow: 0 0.5em 0.5em -0.4em rgba(34, 59, 79, 0.5);
+  transform: translateY(-0.25em);
+}
+.item p {
+  font-weight: 400;
+}
+.image {
+  border-radius:17px;
+  object-fit: cover;
+  height: 100% ;
+  width: 33%;
+}
+.type {
+  padding: 2px;
+  width: 40%;
+  text-align: center;
+  border-radius:20px ;
+  border: 1px solid #456FFF;
+  color: #4565FF;
+}
+.text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}

@@ -1,0 +1,11 @@
+.adv {
+  margin: 60px;
+}
+.itemslist {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
