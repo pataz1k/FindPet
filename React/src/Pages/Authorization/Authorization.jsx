@@ -6,12 +6,10 @@ import Input from '../../component/ui/Input/Input';
 import { AuthContext } from '../../context/AuthContext';
 import classes from './Authorization.module.css';
 import { putUserData } from '../../context/dataToCookie';
-import apiUrl from '../../context/apiUrl';
+import { loginURL, signupURL } from '../../context/urlContext';
 
 const Authorization = () => {
 
-  const {isAuth,setIsAuth} = useContext(AuthContext)
-  
   const navigate = useNavigate();
 
   const [email,setEmail] = useState("")
@@ -19,14 +17,17 @@ const Authorization = () => {
   const [username,setUsername] = useState("") 
   const [isRegister, setIsRegister] = useState(false)
 
-  //! Clear all inputs function
+  const {isAuth,setIsAuth} = useContext(AuthContext)
+
+
+  
+  
   function clearInput() {
     setEmail("")
     setPassword("")
     setUsername("")
   }
 
-  //! Regitser function collect data and does axios post request
   async function registerHandler() {
     let data = {
       "username": username,
@@ -34,8 +35,9 @@ const Authorization = () => {
       "email": email
     }
 
-    await axios.post(apiUrl + 'signup',data)
+    await axios.post(signupURL,data)
     .then((response) => {
+      console.log(response.data)
       if (!response.data.token) {
         if(response.data.username) {
           alert("Пользователь с такими именем уже существует")
@@ -45,23 +47,22 @@ const Authorization = () => {
           alert(response.data.password)
         }
       } else {
+
         setIsRegister(false)
       }
 
     })
     .catch((error) => console.log(error.data));
+
     clearInput()
   }
-
-  //! Login function collect data and does axios post request
   async function loginHandler() {
-
     let data = {
       "username": username,
       "password": password
     }
 
-    await axios.post(apiUrl + 'login',data)
+    await axios.post(loginURL,data)
     .then((response) => {
       setIsAuth(true)
       putUserData(response.data)

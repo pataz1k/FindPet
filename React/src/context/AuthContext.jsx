@@ -6,7 +6,7 @@ export const AuthProvider = ({children}) => {
     const [isAuth, setIsAuth] = useState(false)
 
     useEffect(() =>{
-        if (getUserData() == {}) {
+        if (getUserData() !== null) {
             setIsAuth(true)
         }
     },[])

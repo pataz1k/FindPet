@@ -8,7 +8,12 @@ export function putUserData(data) {
 
 }
 export function getUserData() { 
-    return Cookies.get()
+    if (Object.values(Cookies.get()).length === 0) {
+        return null
+    } else {
+        return Cookies.get()
+    }
+
 }
 
 export function clearUserData() {

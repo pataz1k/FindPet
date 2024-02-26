@@ -10,8 +10,7 @@
   cursor: pointer;
 }
 .item:hover {
-  box-shadow: 0 0.5em 0.5em -0.4em rgba(34, 59, 79, 0.5);
-  transform: translateY(-0.25em);
+  box-shadow: 4px 4px 30px 5px rgba(34, 60, 80, 0.2);
 }
 .item p {
   font-weight: 400;
@@ -34,4 +33,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+.buttons {
+  margin-top: 10px;
+  display: flex;
+  gap: 20px;
 }

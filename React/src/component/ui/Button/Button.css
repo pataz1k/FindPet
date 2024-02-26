@@ -28,4 +28,7 @@
 .button-red {
     background-color:  #ff2727 !important;
 }
+.button-red:hover {
+    background-color:  #e21111 !important;
+}
   

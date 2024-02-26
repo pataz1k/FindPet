@@ -4632,6 +4632,11 @@ react-is@^16.13.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-js-loader@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.npmjs.org/react-js-loader/-/react-js-loader-0.1.3.tgz"
+  integrity sha512-ucmjrURBzFnu95ozCVBTQ7SJwJsVwUNG2iZL/YDFaIRZpv6zyDrWSfJ4iS8AggQEb0HV68CF3G5UbRnScsdsiA==
+
 react-markdown@^9.0.0:
   version "9.0.1"
   resolved "https://registry.npmjs.org/react-markdown/-/react-markdown-9.0.1.tgz"

@@ -3,12 +3,14 @@ import classes from './PetsList.module.css'
 import Petitem from '../Petitem/Petitem'
 
 
-const PetsList = ({itemClick,petsArr, rows}) => {
+const PetsList = ({handlerDelete,handlerEdit,petsArr, rows,profile}) => {
   return (
     <div className={[classes.itemslist]} style={{gridTemplateColumns:`repeat(${rows}, 1fr)`}}>
     {petsArr.length != 0? petsArr.map((item) => {
       return <Petitem 
-      itemClick={itemClick}
+      profile={profile}
+      handlerDelete={handlerDelete}
+      handlerEdit={handlerEdit}
       key={item.id} 
       id={item.id} 
       features={item.features} 

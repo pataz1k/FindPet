@@ -2,25 +2,35 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import PetsList from '../../component/PetsList/PetsList'
 import classes from "./Advertisement.module.css"
-import apiUrl from '../../context/apiUrl'
+import { petsURL } from '../../context/urlContext'
+import Loader from "react-js-loader";
 
 const Advertisement = () => {
-
   const [petsArr,setPetsArr] = useState([]) 
 
-  //! Gets PetsList for advertisement
+  const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
-    axios.get(apiUrl + 'pets_list')
+    axios.get(petsURL)
     .then((response) => {
-      console.log(response.data);
+      console.log(response)
       setPetsArr(response.data);
+      setIsLoading(false)
     })
     .catch((err) => {console.log(err)})
   },[])
 
+
+
+
   return (
     <div className={classes.adv}>
-        <PetsList rows={3} petsArr={petsArr}/>
+      {isLoading? 
+        <Loader type="box-rectangular" bgColor={'#4565FF'} color={'#000'} title={"Загрузка"} size={100} />
+        :
+        <PetsList profile={false} rows={3} petsArr={petsArr}/>
+      }
+        
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import user from '../../assets/pfp.svg';
 import Button from '../../component/ui/Button/Button';
@@ -8,73 +8,108 @@ import classes from './Profile.module.css';
 import axios from 'axios';
 import PetsList from '../../component/PetsList/PetsList';
 import Modal from '../../component/ui/Modal/Modal';
-import apiUrl from '../../context/apiUrl';
-
+import { petsURL } from '../../context/urlContext';
+import Loader from "react-js-loader";
+import EditModal from '../../component/ui/EditModal/EditModal';
 
 
 const Profile = () => {
+    const [userAdv, setUserAdv] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+
+    const {isAuth, setIsAuth} = useContext(AuthContext)
     
-    const [userAdv, setUserAdv] = useState([]) //! User advertisement
+    const userData = getUserData()
+    const [isDeleteVisible,setIsDeleteVisible] = useState(false)
 
-    const {isAuth, setIsAuth} = useContext(AuthContext) //! Auth Context
-    
-    const userData = getUserData() //! Get User Data from cookies
+    const [isEditVisible,setIsEditVisible] = useState(false)
 
-    const [isVisible, setIsVisible] = useState(false) //! Visible state for Modal
+    const [pickedItem,setPickedItem] = useState(null)
+    const [editItem, setEditItem] = useState(null)
 
-    const [itemId, setItemId] = useState(null)
-
-    useEffect(() => {
-      if (userData.username && userData.email) {
+    function getPetsData() {
+      setUserAdv('')
+      if (userData !== null) {
         setIsAuth(true)
+
+        axios.get(petsURL)
+        .then((response) => {
+          setIsLoading(false)
+          response.data.forEach((item) => {
+            if (item.user == userData.id) {
+              console.log(item)
+              setUserAdv(prevItems => [...prevItems,item])
+              console.log(userAdv)
+
+            }
+          })
+        })
+        .catch((err) => {console.log(err)})
       }
-    })
+    }
+
 
     useEffect(() => {
-      //! Axios get request for get PetsList and sorting by userID
-      axios.get(apiUrl + 'pets_list')
-      .then((response) => {
-        response.data.forEach((item) => {
-          if (item.user == userData.id) {
-            console.log(item)
-            setUserAdv(prevItems => [...prevItems,item])
-            console.log(userAdv)
-          }
-        })
-      })
-      .catch((err) => {console.log(err)})
+      getPetsData()
     },[])
+
     
-    //! Callback function for modal
-    //TODO: FIX itemClick is not a function
-    const itemClick = useCallback(() => {
+    function handlerDelete(id) {
       console.log('ITEM CLICKED')
-      setIsVisible(true)
-    })
+      setPickedItem(id)
+      setIsDeleteVisible(true)
+      
+    }
+
+    function acceptDelete() {
+      axios.delete(`${petsURL}/${pickedItem}/`)
+      .then((response) => {console.log(response); setIsDeleteVisible(false); getPetsData()})
+      .catch((err) => {console.log(err)})
+    }
 
     
+    function handlerEdit(id) {
+      setIsEditVisible(true)
+      setPickedItem(id)
+      console.log(`ID - ${id}`)
 
+    }
+    
 
   return (
     <>
+
       <div className={classes.profile}>
           {isAuth ?
-            <div className={classes.wrap}>
-                <img src={user} alt="Profile Picture" className={classes.pfp}/>
-                <p>Id аккаунта: {userData.id}</p>
-                <p>Имя пользователя: {userData.username}</p>
-                <p>Почта: {userData.email}</p>
-                <Button onClick={() =>{clearUserData();setIsAuth(false)}} style={"button-small"}>Выйти</Button>
-                <PetsList  itemClick={itemClick} rows={2} petsArr={userAdv}/>
-            </div>
-            :
-            <div className={classes.wrapNotAuth}>
-              <p>Вы не авторизованы</p>
-              <Button to={'/auth'} style={"button-small"}>Войти</Button>
-            </div>
+
+                  <div className={classes.wrap}>
+                    
+                      <img src={user} alt="Profile Picture" className={classes.pfp}/>
+                      <p>Id аккаунта: {userData.id}</p>
+                      <p>Имя пользователя: {userData.username}</p>
+                      <p>Почта: {userData.email}</p>
+                      <Button onClick={() =>{clearUserData(); setIsAuth(false)}} style={"button-small"}>Выйти</Button>
+                      {isLoading ? 
+                      <Loader type="box-rectangular" bgColor={'#4565FF'} color={'#000'} title={"Загрузка"} size={100} />
+                      :
+                      <PetsList profile={true} handlerEdit={handlerEdit} handlerDelete={handlerDelete} rows={2} petsArr={userAdv}/>
+                      }
+                  </div>
+                  :
+                  <div className={classes.wrapNotAuth}>
+                    <p>Вы не авторизованы</p>
+                    <Button to={'/auth'} style={"button-small"}>Войти</Button>
+                  </div>
+      
           }
       </div>
-      <Modal isVisible={isVisible} itemId={itemId} setItemId={setItemId} setIsVisible={setIsVisible}/>
+      <Modal handler={acceptDelete} isVisible={isDeleteVisible} setIsVisible={setIsDeleteVisible}/>
+      {isEditVisible?
+      
+      <EditModal itemID={pickedItem} isVisible={isEditVisible} setIsVisible={setIsEditVisible}/>
+      :
+      <></>
+      }
     </>
   )
 }

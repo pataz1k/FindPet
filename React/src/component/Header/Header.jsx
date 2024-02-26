@@ -9,7 +9,6 @@ import { AuthContext } from '../../context/AuthContext';
 const Header = () => {
   const [input, setInput] = useState("");
   const {isAuth, setIsAuth} = useContext(AuthContext)
-  
     return (
       <>
         <header>
