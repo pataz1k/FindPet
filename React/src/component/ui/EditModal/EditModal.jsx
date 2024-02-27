@@ -1,12 +1,12 @@
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import InputMask from "react-input-mask"
+import { petsURL } from '../../../Helper/urlContext'
 import cross from '../../../assets/cross.svg'
 import Button from '../Button/Button'
 import Input from '../Input/Input'
 import Textarea from '../Textarea/Textarea'
 import classes from './EditModal.module.css'
-import axios from 'axios'
-import { petsURL } from '../../../context/urlContext'
 
 const EditModal = ({setIsVisible,isVisible,itemID,editCallback}) => {
   

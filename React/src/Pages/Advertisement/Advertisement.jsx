@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import PetsList from '../../component/PetsList/PetsList'
 import classes from "./Advertisement.module.css"
-import { petsURL } from '../../context/urlContext'
+import { petsURL } from '../../Helper/urlContext'
 import Loader from "react-js-loader";
 
 const Advertisement = () => {

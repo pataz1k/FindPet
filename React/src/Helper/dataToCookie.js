@@ -1,13 +1,13 @@
 import Cookies from 'js-cookie'
 
 export function putUserData(data) {
-    Cookies.set('token',data.token)
-    Cookies.set('id',data.user.id)
-    Cookies.set('username',data.user.username)
-    Cookies.set('email',data.user.email)
+    Cookies.set('token', data.token)
+    Cookies.set('id', data.user.id)
+    Cookies.set('username', data.user.username)
+    Cookies.set('email', data.user.email)
 
 }
-export function getUserData() { 
+export function getUserData() {
     if (Object.values(Cookies.get()).length === 0) {
         return null
     } else {
@@ -23,6 +23,8 @@ export function clearUserData() {
     Cookies.remove('email')
 }
 
+
+//! Data for login post request
 /*{
     "token": "edcf4f3521b969be08e805ffc653eeff824e7ccc",
     "user": {

@@ -6,7 +6,7 @@ import Input from '../../component/ui/Input/Input';
 import { AuthContext } from '../../context/AuthContext';
 import classes from './Authorization.module.css';
 import { putUserData } from '../../context/dataToCookie';
-import { loginURL, signupURL } from '../../context/urlContext';
+import { loginURL, signupURL } from '../../Helper/urlContext';
 
 const Authorization = () => {
 

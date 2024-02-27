@@ -7,7 +7,7 @@ import Button from '../../component/ui/Button/Button'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { getUserData } from '../../context/dataToCookie';
-import { petsURL } from '../../context/urlContext';
+import { petsURL } from '../../Helper/urlContext';
 
 const LostPet = () => {
 
