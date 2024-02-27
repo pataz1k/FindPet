@@ -9,8 +9,8 @@ const Main = () => {
             <div className="what-happened">
                 <h1>Что случилось?</h1>
                 <div className="what-happened_button">
-                    <Button to={"/lost-pet"} style={"button-default"}>Я потерял питомца</Button>
-                    <Button to={"/find-pet"} style={"button-default"}>Я нашел питомца</Button>
+                    <Button to={"/create-ad"} style={"button-default"}>Я потерял питомца</Button>
+                    <Button to={"/create-ad"} style={"button-default"}>Я нашел питомца</Button>
                 </div>
             </div>
         </div>

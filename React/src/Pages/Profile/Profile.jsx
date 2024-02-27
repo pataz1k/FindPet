@@ -1,33 +1,33 @@
+import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import Loader from "react-js-loader";
 import user from '../../assets/pfp.svg';
+import PetsList from '../../component/PetsList/PetsList';
 import Button from '../../component/ui/Button/Button';
+import EditModal from '../../component/ui/EditModal/EditModal';
+import Modal from '../../component/ui/Modal/Modal';
 import { AuthContext } from '../../context/AuthContext';
 import { clearUserData, getUserData } from '../../context/dataToCookie';
-import classes from './Profile.module.css';
-import axios from 'axios';
-import PetsList from '../../component/PetsList/PetsList';
-import Modal from '../../component/ui/Modal/Modal';
 import { petsURL } from '../../context/urlContext';
-import Loader from "react-js-loader";
-import EditModal from '../../component/ui/EditModal/EditModal';
+import classes from './Profile.module.css';
 
 
 const Profile = () => {
-    const [userAdv, setUserAdv] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
-
-    const {isAuth, setIsAuth} = useContext(AuthContext)
-    
     const userData = getUserData()
-    const [isDeleteVisible,setIsDeleteVisible] = useState(false)
 
+    const [userAdv, setUserAdv] = useState([])
+
+    const [isLoading, setIsLoading] = useState(true)
+    const {isAuth, setIsAuth} = useContext(AuthContext)
+    const [isDeleteVisible,setIsDeleteVisible] = useState(false)
     const [isEditVisible,setIsEditVisible] = useState(false)
 
     const [pickedItem,setPickedItem] = useState(null)
-    const [editItem, setEditItem] = useState(null)
 
+
+    //* Function to get all data for this user, sorting advertisement by userID
     function getPetsData() {
+      setIsLoading(true)
       setUserAdv('')
       if (userData !== null) {
         setIsAuth(true)
@@ -48,31 +48,33 @@ const Profile = () => {
       }
     }
 
-
+    //* Get DATA on load component
     useEffect(() => {
       getPetsData()
     },[])
 
-    
+    //* Handler to delete item, set Modal visible onClick
     function handlerDelete(id) {
-      console.log('ITEM CLICKED')
       setPickedItem(id)
       setIsDeleteVisible(true)
       
     }
-
+    //* Handler to delete item when accept
     function acceptDelete() {
       axios.delete(`${petsURL}/${pickedItem}/`)
       .then((response) => {console.log(response); setIsDeleteVisible(false); getPetsData()})
       .catch((err) => {console.log(err)})
     }
 
-    
+    //* Handler to edit item, set EditModal visible
     function handlerEdit(id) {
       setIsEditVisible(true)
       setPickedItem(id)
-      console.log(`ID - ${id}`)
+    }
 
+    //* When editing is end, re-paint profile advertisement
+    function editCallback() {
+      getPetsData()
     }
     
 
@@ -103,10 +105,15 @@ const Profile = () => {
       
           }
       </div>
+      {isDeleteVisible ?
       <Modal handler={acceptDelete} isVisible={isDeleteVisible} setIsVisible={setIsDeleteVisible}/>
+      :
+      <></>  
+      }
+      
       {isEditVisible?
       
-      <EditModal itemID={pickedItem} isVisible={isEditVisible} setIsVisible={setIsEditVisible}/>
+      <EditModal itemID={pickedItem} editCallback={editCallback} isVisible={isEditVisible} setIsVisible={setIsEditVisible}/>
       :
       <></>
       }

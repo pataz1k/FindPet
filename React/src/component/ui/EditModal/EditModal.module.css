@@ -25,23 +25,6 @@
     height: 100%;
     backdrop-filter: blur(5px);
 }
-@keyframes show-popup {
-	0% {
-		transform: translate(-50%, -50%)
-		scale(.7);
-
-		opacity: 0;
-	}
-	45% {
-		transform: translate(-50%, -50%)
-		scale(1);
-
-		opacity: 1;
-	}
-	100% {
-		transform: translate(-50%, -50%)
-	}
-}
 
 .input {
     height: 35px;
@@ -64,4 +47,45 @@
 .masked_input{
     display: flex;
     flex-direction: column;
+}
+.closeModal button,.closeModal button img {
+    width: 40px;
+    height: 40px;
+}
+.closeModal button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.closeModal {
+    position: absolute;
+    top: 1px;
+    right: 10px;
+}
+.spacing {
+    height: 5px;
+}
+
+@keyframes show-popup {
+	0% {
+		transform: translate(-50%, -50%)
+		scale(.7);
+
+		opacity: 0;
+	}
+	45% {
+		transform: translate(-50%, -50%)
+		scale(1);
+
+		opacity: 1;
+	}
+	100% {
+		transform: translate(-50%, -50%)
+	}
+}
+
+@media screen and (max-width: 1320px) {
+    .modalWrap {
+        width: 70%;
+    }
 }

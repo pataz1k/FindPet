@@ -5,5 +5,10 @@
     grid-column-gap: 20px;
     grid-row-gap: 20px;
     transition: all .3s ease;
+}
+
+@media screen and (max-width: 1320px) {
+  .itemslist {
+    grid-template-columns: repeat(1,1fr) !important;
   }
-  
+}

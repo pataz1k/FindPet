@@ -5,8 +5,7 @@ import Button from '../Button/Button'
 const Modal = ({handler,isVisible,setIsVisible}) => {
   return (
         <>
-            {isVisible?
-                <div className={classes.modal_back}>
+            <div className={classes.modal_back}>
                 <div className={classes.modalWrap}>
                     <h3>Удалить объявление</h3>
                     <p>Вы уверены что хотите удалить объявление</p>
@@ -16,9 +15,7 @@ const Modal = ({handler,isVisible,setIsVisible}) => {
                     </div>
                 </div>
             </div>
-            :
-            <div></div>
-            }
+
         </>
   )
 }

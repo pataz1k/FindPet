@@ -1,29 +1,50 @@
-import React from 'react'
-import classes from './EditModal.module.css'
-import Input from '../Input/Input'
+import React, { useEffect, useState } from 'react'
+import InputMask from "react-input-mask"
+import cross from '../../../assets/cross.svg'
 import Button from '../Button/Button'
-import { useNavigate } from 'react-router-dom'
-import InputMask from "react-input-mask";
-import Textarea from '../Textarea/Textarea';
-import { useState } from 'react'
+import Input from '../Input/Input'
+import Textarea from '../Textarea/Textarea'
+import classes from './EditModal.module.css'
+import axios from 'axios'
+import { petsURL } from '../../../context/urlContext'
 
-const EditModal = ({setIsVisible,isVisible,itemID}) => {
-
-
-    // axios.get(`${petsURL}/${itemID}/`)
-    // .then((response) => {setEditItem(response.data[0]); setIsEditVisible(true)})
-    // .catch((err) => {console.log(err)})
-
-    console.log(itemID)
-    const [address,setAddress] = useState('')
-    const [features,setFeatures]= useState("")
+const EditModal = ({setIsVisible,isVisible,itemID,editCallback}) => {
   
-    const handleInput = ({ target: { value } }) => setNumber(value);
-    const [number,setNumber] = useState("")
+      const [address,setAddress] = useState('')
+      const [features,setFeatures]= useState("")
+      const handleInput = ({ target: { value } }) => setNumber(value);
+      const [number,setNumber] = useState("")
+      const [description,setDescription] = useState("")
+
+    //* axios.get request to get PickedItem by ID
+    useEffect(() => {
+      axios.get(`${petsURL}/${itemID}/`)
+      .then((response) => {
+        setAddress(response.data.address)
+        setFeatures(response.data.features)
+        setNumber(response.data.number)
+        setDescription(response.data.description)
+      })
+      .catch((err) => {console.log(err)})
+    },[])
   
-    const [description,setDescription] = useState("")
-  
-    const [file,setFile] = useState(null)
+    //* Edit handler send axios.patch request onClick to edit Item
+    function handlerEdit() {
+      const data = {
+        "description": description,
+        "address": address,
+        "features": features,
+        "number": number
+      }
+
+      axios.patch(`${petsURL}/${itemID}/`,data)
+      .then((response) => {
+        console.log(response)
+        setIsVisible(false)
+        editCallback()
+      })
+      .catch((err) => {console.log(err)})
+    }
 
 
 
@@ -32,6 +53,8 @@ const EditModal = ({setIsVisible,isVisible,itemID}) => {
 
         <div className={classes.modal_back}>
         <div className={classes.modalWrap}>
+            <div className={classes.closeModal}><button onClick={() => {setIsVisible(false)}}><img src={cross} alt="close modal" /></button></div>
+            <div className={classes.spacing}></div>
             <Input id={"address"} value={address} onChange={setAddress} label={"Введите адрес:"} placeholder={"г.Москва ул.Бардина"} type={"text"}  />
             <Input id={"features"} value={features} onChange={setFeatures} label={"Введите приметы:"} placeholder={"Серый цвет, ..."} type={"text"}  />
             <div className={classes.masked_input}>
@@ -39,11 +62,7 @@ const EditModal = ({setIsVisible,isVisible,itemID}) => {
               <InputMask className={classes.input} value={number} onChange={handleInput} mask='+7 999 999 99-99' placeholder='+7 999 999 99-99'  />
             </div>
             <Textarea id={'description'} label='Введите описание' placeholder="Описание" value={description} onChange={setDescription}/>
-            <div className={classes.masked_input}>
-              <p className={classes.p}>Добавьте фотографию:</p>
-              <input  type="file" onChange={(e) => {setFile(e.target.files[0])}}/>
-            </div>
-            <Button style={"button-default center"}>Изменить</Button>
+            <Button style={"button-default center"} onClick={handlerEdit}>Изменить</Button>
         </div>
     </div>
 
