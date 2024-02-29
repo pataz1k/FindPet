@@ -1,9 +1,0 @@
-.adv {
-  margin: 60px;
-}
-
-@media screen and (max-width: 780px) {
-  .adv {
-    margin: 15px 10px;
-  }
-}
