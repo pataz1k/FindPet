@@ -8,6 +8,11 @@
     padding: 79px 57px;
     margin: 60px;
 }
+.auth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .wrap p {
     font-size: 20px;
     font-weight: bold;

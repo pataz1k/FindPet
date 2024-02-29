@@ -1,14 +1,9 @@
 #root {
   max-width: 1920px;
   margin: 0 auto;
+}
 
-}
-.main-wrap {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-}
+
 @media screen and (max-width:470px) {
   .main-wrap {
     justify-content: flex-start;

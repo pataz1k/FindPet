@@ -22,7 +22,7 @@ const Header = () => {
   }
     return (
       <div className={classes.headerBack}>
-      <button className={classes.menu} onClick={openModal}> <img src={menu} alt="" /></button>
+      <div className={classes.menuWrap}><button className={classes.menu} onClick={openModal}> <img src={menu} alt="" /></button></div>
       <div className={classes.headerWrap}  style={{ maxHeight:`${isOpen}` }}>
         <div className={classes.header}>
           <Link to={'/'}><img src={logo} alt="Logo" /></Link>

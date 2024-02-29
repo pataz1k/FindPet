@@ -20,10 +20,9 @@
     gap: 20px;
 }
 .modal_back {
-    position: absolute;
+    position: fixed;
     width: 100%;
-    height: 100%;
-    backdrop-filter: blur(5px);
+    height: 100vh;
 }
 @keyframes show-popup {
 	0% {

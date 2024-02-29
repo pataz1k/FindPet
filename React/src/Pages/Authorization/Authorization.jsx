@@ -1,20 +1,21 @@
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { putUserData } from '../../Helper/dataToCookie';
+import { loginURL, signupURL } from '../../Helper/urlContext';
 import Button from '../../component/ui/Button/Button';
 import Input from '../../component/ui/Input/Input';
 import { AuthContext } from '../../context/AuthContext';
 import classes from './Authorization.module.css';
-import { putUserData } from '../../context/dataToCookie';
-import { loginURL, signupURL } from '../../Helper/urlContext';
 
 const Authorization = () => {
+
 
   const navigate = useNavigate();
 
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("")
-  const [username,setUsername] = useState("") 
+  const [username,setUsername] = useState("")
   const [isRegister, setIsRegister] = useState(false)
 
   const {isAuth,setIsAuth} = useContext(AuthContext)
@@ -37,7 +38,6 @@ const Authorization = () => {
 
     await axios.post(signupURL,data)
     .then((response) => {
-      console.log(response.data)
       if (!response.data.token) {
         if(response.data.username) {
           alert("Пользователь с такими именем уже существует")
@@ -47,7 +47,7 @@ const Authorization = () => {
           alert(response.data.password)
         }
       } else {
-
+        alert("Теперь войдите в свой аккаунт")
         setIsRegister(false)
       }
 
@@ -61,11 +61,10 @@ const Authorization = () => {
       "username": username,
       "password": password
     }
-
     await axios.post(loginURL,data)
     .then((response) => {
       setIsAuth(true)
-      putUserData(response.data)
+      putUserData(response.data.user)
       navigate('/profile')
     })
     .catch((error) => console.log(error.data.email));
@@ -84,11 +83,11 @@ const Authorization = () => {
           <Input id={"password"} value={password} onChange={setPassword} label={"Введите пароль:"} placeholder={"Пароль"} type={"password"}  />
           <Link className={classes.link} to={"/"}>Забыли пароль?</Link>
           <div className={classes.buttons}>
-            {isRegister ? 
+            {isRegister ?
             <Button onClick={() => { registerHandler()}} style={"button-small"}>Зарегистрироваться</Button>: 
             <Button onClick={() => { loginHandler() }} style={"button-small"}>Войти</Button>
             }
-            {isRegister ? 
+            {isRegister ?
             <Button onClick={() => { setIsRegister(false) }} style={"button-small"}>Войти</Button>: 
             <Button onClick={() => { setIsRegister(true) }} style={"button-small"}>Зарегистрироваться</Button>
             }

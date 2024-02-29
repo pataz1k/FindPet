@@ -1,7 +1,10 @@
-import React from 'react'
-import './Main.css'
-import Button from '../../component/ui/Button/Button'
+import React from 'react';
+import Button from '../../component/ui/Button/Button';
+import './Main.css';
+
+
 const Main = () => {
+
   return (
     <>
         <div className="main">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import InputMask from "react-input-mask";
 import Input from '../../component/ui/Input/Input';
 import classes from './CreateAd.module.css';
@@ -6,10 +6,14 @@ import Textarea from '../../component/ui/Textarea/Textarea';
 import Button from '../../component/ui/Button/Button'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-import { getUserData } from '../../context/dataToCookie';
+import { getUserData } from '../../Helper/dataToCookie';
 import { petsURL } from '../../Helper/urlContext';
+import { LoadingContext } from '../../context/LoadingContext';
 
 const LostPet = () => {
+
+  const {isLoading, setIsLoading} = useContext(LoadingContext)
+  setIsLoading(false)
 
   const navigate = useNavigate()
   const [address,setAddress] = useState("")

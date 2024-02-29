@@ -1,5 +1,9 @@
-export const petsURL = "http://127.0.0.1:8000/pets_list"
+const mainUrl = 'http://127.0.0.1:8000/'
 
-export const loginURL = "http://127.0.0.1:8000/login"
+export const petsURL = mainUrl + 'pets_list'
 
-export const signupURL = "http://127.0.0.1:8000/signup"
+export const loginURL = mainUrl + 'login'
+
+export const signupURL = mainUrl + 'signup'
+
+export const userUrl = mainUrl + 'users'
