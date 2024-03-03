@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 
-
+//! get userID from cookies
 export function getUserId() {
     if (Cookies.get('id')) {
         return Cookies.get('id')
@@ -8,9 +8,11 @@ export function getUserId() {
         return null
     }
 }
+//! set userID in cookies
 export function setUserId(id) {
     Cookies.set('id',id)
 }
+//! clear userID in cookies
 export function clearUserId() {
     Cookies.remove('id')
 }
