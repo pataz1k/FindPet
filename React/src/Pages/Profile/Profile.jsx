@@ -6,7 +6,7 @@ import Button from '../../component/ui/Button/Button';
 import EditModal from '../../component/ui/EditModal/EditModal';
 import Modal from '../../component/ui/Modal/Modal';
 import { AuthContext } from '../../context/AuthContext';
-import { clearUserData, getUserData } from '../../Helper/dataToCookie';
+import { clearUserId, getUserId } from '../../Helper/dataToCookie';
 import { petsURL, userUrl } from '../../Helper/urlContext';
 import classes from './Profile.module.css';
 import { LoadingContext } from '../../context/LoadingContext';
@@ -21,7 +21,13 @@ import Cookies from 'js-cookie';
 
 
 const Profile = () => {
-  const userData = getUserData()
+  const userId = getUserId()
+
+  const [userData, setUserData] = useState('')
+
+  const [displayName, setDisplayName] = useState('')
+  
+  const [isDisplayNameChange, setIsDisplayNameChange] = useState(false)
 
   const [isDisplayNameChange, setIsDisplayNameChange] = useState(false)
 
@@ -39,6 +45,37 @@ const Profile = () => {
 
   //* Get DATA on load component
   useEffect(() => {
+<<<<<<< HEAD
+    fetchData()
+  }, [isAuth])
+  
+
+  async function fetchData() {
+    if (isAuth) {
+      setIsLoading(true)
+      await axios.get(`${userUrl}/${userId}/`)
+      .then((res) => {setUserData(res.data); console.log('GET USER DATA FOR PROFILE')})
+      .catch((err) => {console.log(err)})
+      getPetsData()
+    }
+  }
+
+  //* Function to get all data for this user, sorting advertisement by userID
+  function getPetsData() {
+    setUserAdv('')
+  
+    axios.get(petsURL)
+      .then((response) => {
+        response.data.forEach((item) => {
+          if (item.user == userData.id) {
+            setUserAdv(prevItems => [...prevItems, item])
+          }
+          console.log('GET PETS DATA FOR PROFILE')
+        })
+        setIsLoading(false)
+      })
+      .catch((err) => { console.log(err) })
+=======
     getPetsData()
   }, [])
   //* Function to get all data for this user, sorting advertisement by userID
@@ -59,6 +96,7 @@ const Profile = () => {
         })
         .catch((err) => { console.log(err) })
     }
+>>>>>>> 5023c95b2c64c7052000e911368a0bac6afbbc6a
   }
 
   //* Handler to delete item, set Modal visible onClick
@@ -79,10 +117,13 @@ const Profile = () => {
     setIsEditVisible(true)
     setPickedItem(id)
   }
-
-  //* When editing is end, re-paint profile advertisement
-  function editCallback() {
-    getPetsData()
+  
+  function handlerPatch() {
+      axios.patch(`${userUrl}/${userData.id}/`,{"first_name": displayName})
+      .then((response) => {console.log(response)})
+      .catch((err) => {console.log(err)})
+      setIsDisplayNameChange(false)
+      fetchData()
   }
   
   function handlerChange() {
@@ -107,7 +148,11 @@ const Profile = () => {
 
       {isEditVisible ?
 
+<<<<<<< HEAD
+      <EditModal itemID={pickedItem} editCallback={getPetsData} isVisible={isEditVisible} setIsVisible={setIsEditVisible} />
+=======
       <EditModal itemID={pickedItem} editCallback={editCallback} isVisible={isEditVisible} setIsVisible={setIsEditVisible} />
+>>>>>>> 5023c95b2c64c7052000e911368a0bac6afbbc6a
       :
       <></>
       }
@@ -127,14 +172,23 @@ const Profile = () => {
             </div> 
             :
             <div style={{display: 'flex', gap: '20px'}}>
+<<<<<<< HEAD
+              <p>Отображаемое имя: {userData.first_name}</p>
+              <button className={classes.btn} onClick={() => {setIsDisplayNameChange(true);setDisplayName(userData.first_name)}}><img src={edit} alt="edit svg" /></button>
+=======
               <p>Отображаемое имя: {displayName}</p>
               <button className={classes.btn} onClick={handlerChange}><img src={edit} alt="edit svg" /></button>
+>>>>>>> 5023c95b2c64c7052000e911368a0bac6afbbc6a
             </div> 
             }
           
             <p>Логин: {userData.username}</p>
             <p>Почта: {userData.email}</p>
+<<<<<<< HEAD
+            <Button onClick={() => { clearUserId(); setIsAuth(false) }} style={"button-small"}>Выйти</Button>
+=======
             <Button onClick={() => { clearUserData(); setIsAuth(false) }} style={"button-small"}>Выйти</Button>
+>>>>>>> 5023c95b2c64c7052000e911368a0bac6afbbc6a
             <PetsList profile={true} handlerEdit={handlerEdit} handlerDelete={handlerDelete} rows={2} petsArr={userAdv} />
           </div>
           :

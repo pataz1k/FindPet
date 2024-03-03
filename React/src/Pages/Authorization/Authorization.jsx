@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { putUserData } from '../../Helper/dataToCookie';
+import { setUserId } from '../../Helper/dataToCookie';
 import { loginURL, signupURL } from '../../Helper/urlContext';
 import Button from '../../component/ui/Button/Button';
 import Input from '../../component/ui/Input/Input';
@@ -64,7 +64,7 @@ const Authorization = () => {
     await axios.post(loginURL,data)
     .then((response) => {
       setIsAuth(true)
-      putUserData(response.data.user)
+      setUserId(response.data.user.id)
       navigate('/profile')
     })
     .catch((error) => console.log(error.data.email));

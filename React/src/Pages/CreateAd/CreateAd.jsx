@@ -6,7 +6,7 @@ import Textarea from '../../component/ui/Textarea/Textarea';
 import Button from '../../component/ui/Button/Button'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-import { getUserData } from '../../Helper/dataToCookie';
+import { getUserId } from '../../Helper/dataToCookie';
 import { petsURL } from '../../Helper/urlContext';
 import { LoadingContext } from '../../context/LoadingContext';
 
@@ -26,11 +26,11 @@ const LostPet = () => {
 
   const [file,setFile] = useState(null)
 
-  const userCookie = getUserData()
+  const userId = getUserId()
   
   async function handleSend() {
     const data ={
-      "user": userCookie.id,
+      "user": userId,
       "image_url": file,
       "description": description,
       "address": address,

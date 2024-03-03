@@ -14,7 +14,7 @@ const Advertisement = () => {
     setIsLoading(true)
     axios.get(petsURL)
     .then((response) => {
-      console.log(response)
+      console.log("GET PETS DATA FOR ADVERTISEMENT")
       setPetsArr(response.data);
       setIsLoading(false)
     })

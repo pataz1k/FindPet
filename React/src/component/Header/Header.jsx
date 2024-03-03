@@ -10,20 +10,20 @@ import menu from '../../assets/menu.svg'
 const Header = () => {
   const [input, setInput] = useState("");
   const {isAuth, setIsAuth} = useContext(AuthContext)
-  const [isOpen,setIsOpen] = useState('400px')
+  const [isOpen,setIsOpen] = useState(classes.headerWrap)
 
   function openModal() {
-    console.log(isOpen)
-    if (isOpen == '0px') {
-      setIsOpen('400px')
-    } else if (isOpen == '400px') {
-      setIsOpen('0px')
+
+    if (isOpen == classes.headerWrapOpen) {
+      setIsOpen(classes.headerWrap)
+    } else {
+      setIsOpen(classes.headerWrapOpen)
     }
   }
     return (
       <div className={classes.headerBack}>
       <div className={classes.menuWrap}><button className={classes.menu} onClick={openModal}> <img src={menu} alt="" /></button></div>
-      <div className={classes.headerWrap}  style={{ maxHeight:`${isOpen}` }}>
+      <div className={isOpen}>
         <div className={classes.header}>
           <Link to={'/'}><img src={logo} alt="Logo" /></Link>
           <Link to={'/advertisement'}>Объявления</Link>

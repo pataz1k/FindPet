@@ -4,8 +4,8 @@ from server.models import Pet
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta(object):
-        model = User 
-        fields = ['id', 'username', 'password', 'email']
+        model = User
+        fields = ['id','first_name', 'username', 'password', 'email']
 
 class PetSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())

@@ -26,6 +26,7 @@ def signup(request):
         return Response({'token': token.key, 'user': serializer.data})
     return Response(serializer.errors, status=status.HTTP_200_OK)
 
+
 @api_view(['POST'])
 def login(request):
     user = get_object_or_404(User, username=request.data['username'])
@@ -46,8 +47,19 @@ class PetsDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pet.objects.all()
     serializer_class = PetSerializer
 
+
 class PetsList(generics.ListCreateAPIView):
     queryset = Pet.objects.all()
     serializer_class = PetSerializer
+
+
+
+class UsersList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 

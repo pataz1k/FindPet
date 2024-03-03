@@ -1,30 +1,19 @@
 import Cookies from 'js-cookie'
 
-export function putUserData(data) {
-    console.log(data)
-    Cookies.set('id', data.id)
-    Cookies.set('first_name', data.first_name)
-    Cookies.set('username', data.username)
-    Cookies.set('email', data.email)
 
-}
-export function getUserData() {
-    if (Object.values(Cookies.get()).length === 0) {
-        return null
+export function getUserId() {
+    if (Cookies.get('id')) {
+        return Cookies.get('id')
     } else {
-        return Cookies.get()
+        return null
     }
-
 }
-
-export function clearUserData() {
-    Cookies.remove('token')
+export function setUserId(id) {
+    Cookies.set('id',id)
+}
+export function clearUserId() {
     Cookies.remove('id')
-    Cookies.remove('username')
-    Cookies.remove('email')
-    Cookies.remove('first_name')
 }
-
 
 //! Data for login post request
 /*{

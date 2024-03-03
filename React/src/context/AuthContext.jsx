@@ -1,13 +1,13 @@
 import React, { createContext, useEffect, useState } from "react";
-import { getUserData } from "../Helper/dataToCookie";
+import { getUserId } from "../Helper/dataToCookie";
 export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
 
     const [isAuth, setIsAuth] = useState(false)
 
     useEffect(() => {
-        if (getUserData() != null) {
-            console.log(getUserData())
+        if (getUserId() != null) {
+            console.log(getUserId())
             setIsAuth(true)
         } else {
             setIsAuth(false)
