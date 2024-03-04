@@ -10,7 +10,41 @@
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     max-height: 400px;
 }
+.searchResults {
+    position: absolute;
+    padding: 20px;
+    width: 40%;
+    background-color: #F4F4F4;
+    box-shadow: 0px 14px 62px 12px rgba(0,0,0,0.1);
+    border-radius:17px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: show-popup .3s forwards;
 
+}
+.resultWrap {
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 70vh;
+}
+@keyframes show-popup {
+	0% {
+		transform: translate(-50%, -50%)
+		scale(.7);
+
+		opacity: 0;
+	}
+	45% {
+		transform: translate(-50%, -50%)
+		scale(1);
+
+		opacity: 1;
+	}
+	100% {
+		transform: translate(-50%, -50%)
+	}
+}
 
 
 .headerBack {

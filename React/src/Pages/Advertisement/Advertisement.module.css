@@ -1,6 +1,12 @@
 .adv {
   margin: 60px;
 }
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
 
 @media screen and (max-width: 780px) {
   .adv {

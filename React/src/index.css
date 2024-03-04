@@ -13,6 +13,16 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+::-webkit-scrollbar {
+  width: 12px;               /* ширина scrollbar */
+}
+::-webkit-scrollbar-track {
+  background: none;        /* цвет дорожки */
+}
+::-webkit-scrollbar-thumb {
+  background-color: #4565FF;    /* цвет плашки */
+  border-radius: 20px;       /* закругления плашки */  
+}
 
 a {
   font-weight: 500;

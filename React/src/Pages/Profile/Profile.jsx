@@ -29,10 +29,6 @@ const Profile = () => {
   
   const [isDisplayNameChange, setIsDisplayNameChange] = useState(false)
 
-  const [isDisplayNameChange, setIsDisplayNameChange] = useState(false)
-
-  const [displayName, setDisplayName] = useState("")
-
   const [userAdv, setUserAdv] = useState([])
 
   const {isLoading, setIsLoading} = useContext(LoadingContext)
@@ -43,18 +39,26 @@ const Profile = () => {
 
   const [pickedItem, setPickedItem] = useState(null)
 
+  
   //* Get DATA on load component
   useEffect(() => {
-<<<<<<< HEAD
-    fetchData()
-  }, [isAuth])
+    if (isAuth) {
+      setIsLoading(true)
+      console.log('fetch user')
+      axios.get(`${userUrl}/${userId}/`)
+      .then((res) => {setUserData(res.data);})
+      .catch((err) => {console.log(err)})
+      getPetsData()
+    }
+  }, [])
   
 
   async function fetchData() {
     if (isAuth) {
       setIsLoading(true)
+      console.log('fetch user')
       await axios.get(`${userUrl}/${userId}/`)
-      .then((res) => {setUserData(res.data); console.log('GET USER DATA FOR PROFILE')})
+      .then((res) => {setUserData(res.data);})
       .catch((err) => {console.log(err)})
       getPetsData()
     }
@@ -62,41 +66,19 @@ const Profile = () => {
 
   //* Function to get all data for this user, sorting advertisement by userID
   function getPetsData() {
-    setUserAdv('')
+    console.log('fetch pets')
+    setUserAdv([])
   
     axios.get(petsURL)
       .then((response) => {
         response.data.forEach((item) => {
-          if (item.user == userData.id) {
+          if (item.user == userId) {
             setUserAdv(prevItems => [...prevItems, item])
           }
-          console.log('GET PETS DATA FOR PROFILE')
         })
         setIsLoading(false)
       })
       .catch((err) => { console.log(err) })
-=======
-    getPetsData()
-  }, [])
-  //* Function to get all data for this user, sorting advertisement by userID
-  function getPetsData() {
-    setUserAdv('')
-    if (userData !== null) {
-      setIsAuth(true)
-      setDisplayName(userData.first_name)
-      setIsLoading(true)
-      axios.get(petsURL)
-        .then((response) => {
-          response.data.forEach((item) => {
-            if (item.user == userData.id) {
-              setUserAdv(prevItems => [...prevItems, item])
-            }
-          })
-          setIsLoading(false)
-        })
-        .catch((err) => { console.log(err) })
-    }
->>>>>>> 5023c95b2c64c7052000e911368a0bac6afbbc6a
   }
 
   //* Handler to delete item, set Modal visible onClick
@@ -129,13 +111,7 @@ const Profile = () => {
   function handlerChange() {
     setIsDisplayNameChange(true)
   }
-  
-  function handlerPatch() {
-      axios.patch(`${userUrl}/${userData.id}/`,{"first_name": displayName})
-      .then((response) => {console.log(response);Cookies.set('first_name', displayName)})
-      .catch((err) => {console.log(err)})
-      setIsDisplayNameChange(false)
-  }
+
 
 
   return (
@@ -148,11 +124,7 @@ const Profile = () => {
 
       {isEditVisible ?
 
-<<<<<<< HEAD
       <EditModal itemID={pickedItem} editCallback={getPetsData} isVisible={isEditVisible} setIsVisible={setIsEditVisible} />
-=======
-      <EditModal itemID={pickedItem} editCallback={editCallback} isVisible={isEditVisible} setIsVisible={setIsEditVisible} />
->>>>>>> 5023c95b2c64c7052000e911368a0bac6afbbc6a
       :
       <></>
       }
@@ -172,23 +144,14 @@ const Profile = () => {
             </div> 
             :
             <div style={{display: 'flex', gap: '20px'}}>
-<<<<<<< HEAD
               <p>Отображаемое имя: {userData.first_name}</p>
               <button className={classes.btn} onClick={() => {setIsDisplayNameChange(true);setDisplayName(userData.first_name)}}><img src={edit} alt="edit svg" /></button>
-=======
-              <p>Отображаемое имя: {displayName}</p>
-              <button className={classes.btn} onClick={handlerChange}><img src={edit} alt="edit svg" /></button>
->>>>>>> 5023c95b2c64c7052000e911368a0bac6afbbc6a
             </div> 
             }
           
             <p>Логин: {userData.username}</p>
             <p>Почта: {userData.email}</p>
-<<<<<<< HEAD
             <Button onClick={() => { clearUserId(); setIsAuth(false) }} style={"button-small"}>Выйти</Button>
-=======
-            <Button onClick={() => { clearUserData(); setIsAuth(false) }} style={"button-small"}>Выйти</Button>
->>>>>>> 5023c95b2c64c7052000e911368a0bac6afbbc6a
             <PetsList profile={true} handlerEdit={handlerEdit} handlerDelete={handlerDelete} rows={2} petsArr={userAdv} />
           </div>
           :

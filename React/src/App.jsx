@@ -12,21 +12,23 @@ import Profile from "./Pages/Profile/Profile"
 import Header from './component/Header/Header'
 import { AuthProvider } from "./context/AuthContext"
 import { LoadingProvider } from "./context/LoadingContext"
+import { useState } from "react"
 
 
 
 
 function App() {
+  const [searchItems, setSearchIitems] = useState([])
 
     return(
       <>
         <AuthProvider>
-          <Header/>
+          <Header searchItems={searchItems}/>
             <LoadingProvider>
                 <Routes>
                   <Route path="/" element={<Main/>}/>
                   <Route path="/create-ad" element={<CreateAd/>}/>
-                  <Route path="/advertisement" element={<Advertisement/>}/>
+                  <Route path="/advertisement" element={<Advertisement setSearchIitems={setSearchIitems}/>}/>
                   <Route path="/auth" element={<Authorization/>}/>
                   <Route path="/profile" element={<Profile/>}/>
                   <Route path="/*" element={<NotFound/>}/>
