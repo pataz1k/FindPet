@@ -18,7 +18,7 @@
     box-shadow: 0px 14px 62px 12px rgba(0,0,0,0.1);
     border-radius:17px;
     left: 50%;
-    top: 50%;
+    top: 51%;
     transform: translate(-50%, -50%);
     animation: show-popup .3s forwards;
 
@@ -56,6 +56,23 @@
     display: none;
     background: none;
     border: none;
+}
+
+.closeBtn {
+    background: none ;
+    border: none;
+    cursor: pointer;
+
+}
+.closeBtn, .closeBtn img {
+    width: 40px;
+    height: 40px;
+}
+.buttonWrap {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 5px;
+    margin-bottom: 10px;
 }
 .menu img {
     width: 30px;

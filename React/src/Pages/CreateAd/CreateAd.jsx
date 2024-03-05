@@ -37,6 +37,7 @@ const LostPet = () => {
       "features": features,
       "number": number
   }
+  
   console.log(data)
   await axios.post(petsURL,data, {
     headers: {
@@ -45,8 +46,8 @@ const LostPet = () => {
   })
   .then((response) => {console.log(response)})
   .catch((err) => {console.log(err)})
-
-  navigate('/advertisement')
+  .finally(() => navigate('/advertisement'))
+  
   }
 
   return (

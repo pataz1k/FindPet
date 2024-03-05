@@ -20,9 +20,6 @@ const Authorization = () => {
 
   const {isAuth,setIsAuth} = useContext(AuthContext)
 
-
-  
-  
   function clearInput() {
     setEmail("")
     setPassword("")
@@ -67,7 +64,7 @@ const Authorization = () => {
       setUserId(response.data.user.id)
       navigate('/profile')
     })
-    .catch((error) => console.log(error.data.email));
+    .catch((error) => alert(error.response.data.detail));
     clearInput();
   }
 

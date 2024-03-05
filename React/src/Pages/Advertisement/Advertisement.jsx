@@ -5,7 +5,7 @@ import PetsList from '../../component/PetsList/PetsList'
 import { LoadingContext } from '../../context/LoadingContext'
 import classes from "./Advertisement.module.css"
 
-const Advertisement = ({setSearchIitems}) => {
+const Advertisement = () => {
   const [petsArr,setPetsArr] = useState([]) 
 
   const {isLoading,setIsLoading} = useContext(LoadingContext)
@@ -16,10 +16,9 @@ const Advertisement = ({setSearchIitems}) => {
     .then((response) => {
       console.log("GET PETS DATA FOR ADVERTISEMENT")
       setPetsArr(response.data);
-      setSearchIitems(response.data)
-      setIsLoading(false)
     })
     .catch((err) => {console.log(err)})
+    .finally(() => {setIsLoading(false)})
   },[])
 
 

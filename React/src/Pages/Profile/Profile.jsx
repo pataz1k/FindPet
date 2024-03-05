@@ -26,7 +26,6 @@ const Profile = () => {
   const [userData, setUserData] = useState('')
 
   const [displayName, setDisplayName] = useState('')
-  
   const [isDisplayNameChange, setIsDisplayNameChange] = useState(false)
 
   const [userAdv, setUserAdv] = useState([])
@@ -48,7 +47,7 @@ const Profile = () => {
       axios.get(`${userUrl}/${userId}/`)
       .then((res) => {setUserData(res.data);})
       .catch((err) => {console.log(err)})
-      getPetsData()
+      .finally(() => {getPetsData()})
     }
   }, [])
   
@@ -60,7 +59,7 @@ const Profile = () => {
       await axios.get(`${userUrl}/${userId}/`)
       .then((res) => {setUserData(res.data);})
       .catch((err) => {console.log(err)})
-      getPetsData()
+      .finally(() => {getPetsData()})
     }
   }
 
@@ -76,9 +75,9 @@ const Profile = () => {
             setUserAdv(prevItems => [...prevItems, item])
           }
         })
-        setIsLoading(false)
       })
       .catch((err) => { console.log(err) })
+      .finally(() => {setIsLoading(false)})
   }
 
   //* Handler to delete item, set Modal visible onClick
@@ -90,8 +89,12 @@ const Profile = () => {
   //* Handler to delete item when accept
   function acceptDelete() {
     axios.delete(`${petsURL}/${pickedItem}/`)
-      .then((response) => { console.log(response); setIsDeleteVisible(false); getPetsData() })
+      .then((response) => { console.log(response)})
       .catch((err) => { console.log(err) })
+      .finally(() => {
+        setIsDeleteVisible(false)
+        getPetsData() 
+      })
   }
 
   //* Handler to edit item, set EditModal visible
@@ -104,13 +107,12 @@ const Profile = () => {
       axios.patch(`${userUrl}/${userData.id}/`,{"first_name": displayName})
       .then((response) => {console.log(response)})
       .catch((err) => {console.log(err)})
-      setIsDisplayNameChange(false)
-      fetchData()
+      .finally(() => {
+        setIsDisplayNameChange(false)
+        fetchData()
+      })
   }
-  
-  function handlerChange() {
-    setIsDisplayNameChange(true)
-  }
+
 
 
 
