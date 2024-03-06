@@ -1,14 +1,13 @@
 import React, { useContext, useState } from 'react';
 import InputMask from "react-input-mask";
-import Input from '../../component/ui/Input/Input';
-import classes from './CreateAd.module.css';
-import Textarea from '../../component/ui/Textarea/Textarea';
-import Button from '../../component/ui/Button/Button'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { getUserId } from '../../Helper/dataToCookie';
-import { petsURL } from '../../Helper/urlContext';
+import { postPet } from '../../Helper/serverRequest';
+import Button from '../../component/ui/Button/Button';
+import Input from '../../component/ui/Input/Input';
+import Textarea from '../../component/ui/Textarea/Textarea';
 import { LoadingContext } from '../../context/LoadingContext';
+import classes from './CreateAd.module.css';
 
 const LostPet = () => {
 
@@ -39,11 +38,7 @@ const LostPet = () => {
   }
   
   console.log(data)
-  await axios.post(petsURL,data, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-  },
-  })
+  postPet(data)
   .then((response) => {console.log(response)})
   .catch((err) => {console.log(err)})
   .finally(() => navigate('/advertisement'))

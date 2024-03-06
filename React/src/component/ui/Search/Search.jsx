@@ -1,15 +1,13 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { petsURL } from '../../../Helper/urlContext'
+import React, { useState } from 'react'
+import { getPetsList } from '../../../Helper/serverRequest'
 import classes from './Search.module.css'
-import PetsList from '../../PetsList/PetsList'
 
 const Search = ({setData, setSearchQuery, searchQuery}) => {
   
   const [petsList, setPetsList] = useState([])
 
-  axios.get(petsURL)
-  .then((res) => {setPetsList(res.data)})
+  getPetsList()
+  .then((res) => {setPetsList(res)})
   .catch((err) => {console.log(err)})
 
 const handleInputChange = (e) => { 
@@ -28,11 +26,6 @@ const handleInputChange = (e) => {
   }
 
 }
-
-
-
-
-
 
   return (
     <>

@@ -1,6 +1,5 @@
-import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { petsURL } from '../../Helper/urlContext'
+import { getPetsList } from '../../Helper/serverRequest'
 import PetsList from '../../component/PetsList/PetsList'
 import { LoadingContext } from '../../context/LoadingContext'
 import classes from "./Advertisement.module.css"
@@ -12,10 +11,10 @@ const Advertisement = () => {
 
   useEffect(() => {
     setIsLoading(true)
-    axios.get(petsURL)
+    getPetsList()
     .then((response) => {
       console.log("GET PETS DATA FOR ADVERTISEMENT")
-      setPetsArr(response.data);
+      setPetsArr(response);
     })
     .catch((err) => {console.log(err)})
     .finally(() => {setIsLoading(false)})

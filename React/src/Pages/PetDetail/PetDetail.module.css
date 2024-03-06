@@ -1,0 +1,31 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 80vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.item {
+    display: flex;
+    padding: 15px;
+    border-radius:17px;
+    justify-content: space-around;
+    gap: 20px;
+    align-items: center;
+    background: #fff;
+    height: 40vh;
+    width: 50vw;
+    box-shadow: 4px 4px 15px 0px rgba(34, 60, 80, 0.2);
+}
+.petImage {
+    border-radius:17px;
+    object-fit: cover;
+    height: 100% ;
+    width: 33%;
+}
+.textBlock {
+    display: flex;
+    gap: 50px;
+}

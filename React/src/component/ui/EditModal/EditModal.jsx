@@ -1,7 +1,6 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import InputMask from "react-input-mask"
-import { petsURL } from '../../../Helper/urlContext'
+import { getPetById, patchPet } from '../../../Helper/serverRequest'
 import cross from '../../../assets/cross.svg'
 import Button from '../Button/Button'
 import Input from '../Input/Input'
@@ -18,12 +17,12 @@ const EditModal = ({setIsVisible,isVisible,itemID,editCallback}) => {
 
     //* axios.get request to get PickedItem by ID
     useEffect(() => {
-      axios.get(`${petsURL}/${itemID}/`)
+      getPetById(itemID)
       .then((response) => {
-        setAddress(response.data.address)
-        setFeatures(response.data.features)
-        setNumber(response.data.number)
-        setDescription(response.data.description)
+        setAddress(response.address)
+        setFeatures(response.features)
+        setNumber(response.number)
+        setDescription(response.description)
       })
       .catch((err) => {console.log(err)})
     },[])
@@ -37,7 +36,7 @@ const EditModal = ({setIsVisible,isVisible,itemID,editCallback}) => {
         "number": number
       }
 
-      axios.patch(`${petsURL}/${itemID}/`,data)
+      patchPet(itemID,data)
       .then((response) => {
         console.log(response)
         setIsVisible(false)

@@ -3,6 +3,7 @@ import React from 'react'
 import loc_icon from '../../assets/location-icon.svg'
 import classes from './Petitem.module.css'
 import Button from '../ui/Button/Button'
+import { useNavigate } from 'react-router-dom'
 
 //? Model fields - ['id','description','address','image','features','number']
 //TODO: Add loader + modal www.flowbite-react.com
@@ -10,8 +11,12 @@ import Button from '../ui/Button/Button'
 
 
 const Petitem = ({profile,handlerDelete,handlerEdit,id,description,address,image,features,number}) => {
+
+  const navigate = useNavigate();
+
+
   return (
-    <div  id={id} className={classes.item}>
+    <div  id={id} className={classes.item} onClick={() => { !profile && navigate(`/advertisement/${id}`) }}>
       <img className={classes.image} src={image} alt="Pet image"/>
       <div className={classes.text}>
         <p className={classes.description}>{description}</p>

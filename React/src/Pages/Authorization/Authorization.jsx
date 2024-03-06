@@ -1,8 +1,7 @@
-import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { setUserId } from '../../Helper/dataToCookie';
-import { loginURL, signupURL } from '../../Helper/urlContext';
+import { login, signUp } from '../../Helper/serverRequest';
 import Button from '../../component/ui/Button/Button';
 import Input from '../../component/ui/Input/Input';
 import { AuthContext } from '../../context/AuthContext';
@@ -33,15 +32,15 @@ const Authorization = () => {
       "email": email
     }
 
-    await axios.post(signupURL,data)
+    signUp(data)
     .then((response) => {
-      if (!response.data.token) {
-        if(response.data.username) {
+      if (!response.token) {
+        if(response.username) {
           alert("Пользователь с такими именем уже существует")
-        } else if (response.data.email) {
+        } else if (response.email) {
           alert("Введите коректный email")
-        } else if (response.data.password) {
-          alert(response.data.password)
+        } else if (response.password) {
+          alert(response.password)
         }
       } else {
         alert("Теперь войдите в свой аккаунт")
@@ -49,7 +48,7 @@ const Authorization = () => {
       }
 
     })
-    .catch((error) => console.log(error.data));
+    .catch((error) => console.log(error));
 
     clearInput()
   }
@@ -58,13 +57,13 @@ const Authorization = () => {
       "username": username,
       "password": password
     }
-    await axios.post(loginURL,data)
+    login(data)
     .then((response) => {
       setIsAuth(true)
-      setUserId(response.data.user.id)
+      setUserId(response.user.id)
       navigate('/profile')
     })
-    .catch((error) => alert(error.response.data.detail));
+    .catch((error) => alert(error));
     clearInput();
   }
 

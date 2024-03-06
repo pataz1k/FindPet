@@ -1,19 +1,17 @@
-import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
+import { clearUserId, getUserId } from '../../Helper/dataToCookie';
+import { deletePet, getPetsList, getUserById, patchUser } from '../../Helper/serverRequest';
+import accept from '../../assets/accept.svg';
+import edit from '../../assets/edit.svg';
 import user from '../../assets/pfp.svg';
 import PetsList from '../../component/PetsList/PetsList';
 import Button from '../../component/ui/Button/Button';
 import EditModal from '../../component/ui/EditModal/EditModal';
+import Input from '../../component/ui/Input/Input';
 import Modal from '../../component/ui/Modal/Modal';
 import { AuthContext } from '../../context/AuthContext';
-import { clearUserId, getUserId } from '../../Helper/dataToCookie';
-import { petsURL, userUrl } from '../../Helper/urlContext';
-import classes from './Profile.module.css';
 import { LoadingContext } from '../../context/LoadingContext';
-import Input from '../../component/ui/Input/Input';
-import accept from '../../assets/accept.svg'
-import edit from '../../assets/edit.svg'
-import Cookies from 'js-cookie';
+import classes from './Profile.module.css';
 
 
 //! Delayed API for Loader TEST
@@ -44,8 +42,8 @@ const Profile = () => {
     if (isAuth) {
       setIsLoading(true)
       console.log('fetch user')
-      axios.get(`${userUrl}/${userId}/`)
-      .then((res) => {setUserData(res.data);})
+      getUserById(userId)
+      .then((res) => {setUserData(res);})
       .catch((err) => {console.log(err)})
       .finally(() => {getPetsData()})
     }
@@ -56,8 +54,8 @@ const Profile = () => {
     if (isAuth) {
       setIsLoading(true)
       console.log('fetch user')
-      await axios.get(`${userUrl}/${userId}/`)
-      .then((res) => {setUserData(res.data);})
+      getUserById(userId)
+      .then((res) => {setUserData(res);})
       .catch((err) => {console.log(err)})
       .finally(() => {getPetsData()})
     }
@@ -68,9 +66,9 @@ const Profile = () => {
     console.log('fetch pets')
     setUserAdv([])
   
-    axios.get(petsURL)
+    getPetsList()
       .then((response) => {
-        response.data.forEach((item) => {
+        response.forEach((item) => {
           if (item.user == userId) {
             setUserAdv(prevItems => [...prevItems, item])
           }
@@ -88,7 +86,7 @@ const Profile = () => {
   }
   //* Handler to delete item when accept
   function acceptDelete() {
-    axios.delete(`${petsURL}/${pickedItem}/`)
+    deletePet(pickedItem)
       .then((response) => { console.log(response)})
       .catch((err) => { console.log(err) })
       .finally(() => {
@@ -104,7 +102,7 @@ const Profile = () => {
   }
   
   function handlerPatch() {
-      axios.patch(`${userUrl}/${userData.id}/`,{"first_name": displayName})
+      patchUser(userData.id,{"first_name": displayName})
       .then((response) => {console.log(response)})
       .catch((err) => {console.log(err)})
       .finally(() => {

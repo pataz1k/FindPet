@@ -12,7 +12,7 @@ import Profile from "./Pages/Profile/Profile"
 import Header from './component/Header/Header'
 import { AuthProvider } from "./context/AuthContext"
 import { LoadingProvider } from "./context/LoadingContext"
-
+import PetDetail from "./Pages/PetDetail/PetDetail"
 
 
 
@@ -27,6 +27,7 @@ function App() {
                   <Route path="/" element={<Main/>}/>
                   <Route path="/create-ad" element={<CreateAd/>}/>
                   <Route path="/advertisement" element={<Advertisement/>}/>
+                  <Route path="/advertisement/:petID" element={<PetDetail/>}/>
                   <Route path="/auth" element={<Authorization/>}/>
                   <Route path="/profile" element={<Profile/>}/>
                   <Route path="/*" element={<NotFound/>}/>
