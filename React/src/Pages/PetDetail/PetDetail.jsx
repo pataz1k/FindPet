@@ -18,17 +18,15 @@ const PetDetail = () => {
         setIsLoading(true)
         getPetById(petID)
         .then((res) => {
-            setPet(res); 
+            setPet(res);
             getUserById(res.user)
             .then((res) => {setUser(res);console.log(res)})
             .catch((err) => {console.log(err)})
-            console.log(res);
         })
         .catch((err) => {console.log(err)})
         .finally(setIsLoading(false))
     
     }, [])
-
 
     /* {
     "id": 1,
@@ -38,30 +36,31 @@ const PetDetail = () => {
     "address": "test",
     "features": "test",
     "number": "+7 123 123 13-13"
-} */
+        }
+    */
 
-  return (
-    <div className={classes.wrap}>
-        <h3>Номер объявления: {petID}</h3>
-        <div className={classes.item}>
-            <img className={classes.petImage} src={pet.image_url} alt="pet image" />
-            <div className={classes.textBlock}>
-                <div className={classes.petInfo}>
-                    <h5>Информация о питомце:</h5>
-                    <p className={classes.features}>Особенности: {pet.features}</p>
-                    <p className={classes.description}>Описание: {pet.description}</p>
-                    <p className={classes.address}><img src={loc_icon}/> {pet.address}</p>
-                    <p className={classes.number}>Номер телефона: <b>{pet.number}</b></p>
-                </div>
-                <div className={classes.userInfo}>
-                    <h5>Информация о пользователе:</h5>
-                    <p>Имя пользователя: {user.first_name}</p>
-                    <p>Email: {user.email}</p>
+    return (
+        <div className={classes.wrap}>
+            <h3>Номер объявления: {petID}</h3>
+            <div className={classes.item}>
+                <img className={classes.petImage} src={pet.image_url} alt="pet image" />
+                <div className={classes.textBlock}>
+                    <div className={classes.petInfo}>
+                        <h5>Информация о питомце:</h5>
+                        <p className={classes.features}><b>Особенности:</b>  {pet.features}</p>
+                        <p className={classes.description}><b>Описание:</b> {pet.description}</p>
+                        <p className={classes.address}><img src={loc_icon} className={classes.address_image}/> {pet.address}</p>
+                        <p className={classes.number}><b>Номер телефона:</b> <b>{pet.number}</b></p>
+                    </div>
+                    <div className={classes.userInfo}>
+                        <h5>Информация о пользователе:</h5>
+                        <p><b>Имя пользователя:</b> {user.first_name}</p>
+                        <p><b>Email:</b> {user.email}</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default PetDetail

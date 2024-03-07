@@ -12,6 +12,7 @@ import Modal from '../../component/ui/Modal/Modal';
 import { AuthContext } from '../../context/AuthContext';
 import { LoadingContext } from '../../context/LoadingContext';
 import classes from './Profile.module.css';
+import {toast } from 'react-toastify';
 
 
 //! Delayed API for Loader TEST
@@ -87,11 +88,12 @@ const Profile = () => {
   //* Handler to delete item when accept
   function acceptDelete() {
     deletePet(pickedItem)
-      .then((response) => { console.log(response)})
+      .then((response) => { toast.info("Объявление успешно удалено")})
       .catch((err) => { console.log(err) })
       .finally(() => {
         setIsDeleteVisible(false)
-        getPetsData() 
+        getPetsData()
+        
       })
   }
 

@@ -11,13 +11,16 @@ const Search = ({setData, setSearchQuery, searchQuery}) => {
   .catch((err) => {console.log(err)})
 
 const handleInputChange = (e) => { 
-  console.log(`${e.target.value} - ${e.target.value == ''}`)
   setSearchQuery(e.target.value)
 
   if (e.target.value != '') {
     const filteredItems = petsList.filter((user) =>
   
-    user.description.toLowerCase().includes(e.target.value.toLowerCase())
+    user.description.toLowerCase().includes(e.target.value.toLowerCase()) || 
+    user.features.toLowerCase().includes(e.target.value.toLowerCase()) || 
+    user.address.toLowerCase().includes(e.target.value.toLowerCase()) ||
+    user.number.toLowerCase().split(/[' ' -]/).join('').includes(e.target.value.toLowerCase())
+
     );
     
     setData(filteredItems);

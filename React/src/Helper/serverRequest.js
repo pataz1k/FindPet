@@ -2,7 +2,6 @@ import { petsURL, loginURL, signupURL, userUrl } from "./urlContext";
 import axios from "axios";
 
 export const getUserById = async (id) => {
-    
     try {
         const response = await axios.get(`${userUrl}/${id}/`)
         return response.data
@@ -51,7 +50,7 @@ export const login = async (data) => {
 
 export const deletePet = async(id) => {
     try {
-        const response = await axios.delete(`${petsURL}/${pickedItem}/`)
+        const response = await axios.delete(`${petsURL}/${id}/`)
         return response.data
     } catch(err) {
         throw new Error(err)
@@ -79,10 +78,7 @@ export const patchPet = async(id,data) => {
 export const postPet = async(data) => {
     try {
         const response = await axios.post(petsURL,data, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-          },
-          })
+            headers: {"Content-Type": "multipart/form-data",},})
         return response.data
     } catch(err) {
         throw new Error(err)

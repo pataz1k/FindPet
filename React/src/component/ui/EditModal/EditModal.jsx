@@ -6,6 +6,7 @@ import Button from '../Button/Button'
 import Input from '../Input/Input'
 import Textarea from '../Textarea/Textarea'
 import classes from './EditModal.module.css'
+import {toast } from 'react-toastify';
 
 const EditModal = ({setIsVisible,isVisible,itemID,editCallback}) => {
   
@@ -41,6 +42,7 @@ const EditModal = ({setIsVisible,isVisible,itemID,editCallback}) => {
         console.log(response)
         setIsVisible(false)
         editCallback()
+        toast.info("Объявление успшно изменено")
       })
       .catch((err) => {console.log(err)})
     }

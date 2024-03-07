@@ -29,3 +29,7 @@
     display: flex;
     gap: 50px;
 }
+.address_image {
+    width: 20px;
+    height: 20px;
+}

@@ -6,6 +6,8 @@ import Button from '../../component/ui/Button/Button';
 import Input from '../../component/ui/Input/Input';
 import { AuthContext } from '../../context/AuthContext';
 import classes from './Authorization.module.css';
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Authorization = () => {
 
@@ -31,24 +33,29 @@ const Authorization = () => {
       "password": password,
       "email": email
     }
-
-    signUp(data)
-    .then((response) => {
-      if (!response.token) {
-        if(response.username) {
-          alert("Пользователь с такими именем уже существует")
-        } else if (response.email) {
-          alert("Введите коректный email")
-        } else if (response.password) {
-          alert(response.password)
+    if (!username || !password || !email) {
+      toast.error("Поля не могут быть пустыми")
+    } else {
+      signUp(data)
+      .then((response) => {
+        console.log(response)
+        if (!response.token) {
+          if(response.username) {
+            toast.error("Пользователь с такими именем уже существует")
+          } else if (response.email) {
+            toast.error("Введите коректный email")
+          } else if (response.password) {
+            toast.error("Введите коректный пароль")
+          }
+        } else {
+          toast.success("Успешная регистрация")
+          setIsRegister(false)
         }
-      } else {
-        alert("Теперь войдите в свой аккаунт")
-        setIsRegister(false)
-      }
+  
+      })
+      .catch((error) => console.log(error));
+    }
 
-    })
-    .catch((error) => console.log(error));
 
     clearInput()
   }
@@ -63,13 +70,14 @@ const Authorization = () => {
       setUserId(response.user.id)
       navigate('/profile')
     })
-    .catch((error) => alert(error));
+    .catch((error) => toast.error("Неверное имя пользователя или пароль"));
     clearInput();
   }
 
 
 
   return (
+    <>
     <div className={classes.auth}>
       <div className={classes.wrap}>
         <p>Войти</p>
@@ -82,16 +90,18 @@ const Authorization = () => {
             {isRegister ?
             <Button onClick={() => { registerHandler()}} style={"button-small"}>Зарегистрироваться</Button>: 
             <Button onClick={() => { loginHandler() }} style={"button-small"}>Войти</Button>
-            }
+          }
             {isRegister ?
             <Button onClick={() => { setIsRegister(false) }} style={"button-small"}>Войти</Button>: 
             <Button onClick={() => { setIsRegister(true) }} style={"button-small"}>Зарегистрироваться</Button>
-            }
+          }
           </div>
         </form>
       </div>
       
     </div>
+
+    </>
   )
 }
 

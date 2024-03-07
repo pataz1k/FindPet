@@ -13,6 +13,7 @@ import Header from './component/Header/Header'
 import { AuthProvider } from "./context/AuthContext"
 import { LoadingProvider } from "./context/LoadingContext"
 import PetDetail from "./Pages/PetDetail/PetDetail"
+import { Bounce, Slide, ToastContainer } from "react-toastify"
 
 
 
@@ -32,6 +33,20 @@ function App() {
                   <Route path="/profile" element={<Profile/>}/>
                   <Route path="/*" element={<NotFound/>}/>
                 </Routes>
+                <ToastContainer
+                  stacked
+                  position="bottom-right"
+                  autoClose={3000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="light"
+                  transition={Slide}
+                />
             </LoadingProvider>
         </AuthProvider>
       </>

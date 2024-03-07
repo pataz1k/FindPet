@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../../component/ui/Button/Button';
 import './Main.css';
-
+import {toast } from 'react-toastify';
 
 const Main = () => {
 
@@ -14,6 +14,7 @@ const Main = () => {
                 <div className="what-happened_button">
                     <Button to={"/create-ad"} style={"button-default"}>Я потерял питомца</Button>
                     <Button to={"/create-ad"} style={"button-default"}>Я нашел питомца</Button>
+                    <Button onClick={() => {toast.info('TEST TOAST')}} style={"button-default"}>TEST TOAST</Button>
                 </div>
             </div>
         </div>

@@ -8,6 +8,7 @@ import Input from '../../component/ui/Input/Input';
 import Textarea from '../../component/ui/Textarea/Textarea';
 import { LoadingContext } from '../../context/LoadingContext';
 import classes from './CreateAd.module.css';
+import {toast } from 'react-toastify';
 
 const LostPet = () => {
 
@@ -39,9 +40,12 @@ const LostPet = () => {
   
   console.log(data)
   postPet(data)
-  .then((response) => {console.log(response)})
+  .then((response) => {
+    console.log(response)
+    toast.success("Объявление успешно добавленно")
+    navigate('/advertisement')
+  })
   .catch((err) => {console.log(err)})
-  .finally(() => navigate('/advertisement'))
   
   }
 
