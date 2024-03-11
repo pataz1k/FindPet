@@ -1,5 +1,7 @@
+@import '../../vars.css';
+
 .wrap {
-    background: #fff;
+    background: var(--back-color);
     border-radius: 32px;
     display: flex;
     flex-direction: column;
@@ -26,11 +28,11 @@
 .link {
     font-weight: 400;
     font-size: 16px;
-    color: #584CF4;
+    color: var(--primary-color);
     transition: color .3s ease;
 }
 .link:hover {
-    color: #2c1ef7;
+    color: var(--primary-color-hover);
 }
 .buttons {
     display: flex;

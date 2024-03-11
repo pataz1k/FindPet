@@ -50,7 +50,7 @@ const Header = () => {
         <div className={classes.searchResults}>
           <div className={classes.buttonWrap}><button onClick={closeSearch} className={classes.closeBtn}> <img src={cross} alt="cross"/></button></div>
           <div className={classes.resultWrap}>
-            <PetsList petsArr={searchRes} rows={1}/>
+            <PetsList closeSearch={closeSearch} petsArr={searchRes} rows={1}/>
           </div>
         </div>
       }

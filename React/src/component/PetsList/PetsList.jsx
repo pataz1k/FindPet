@@ -3,13 +3,14 @@ import classes from './PetsList.module.css'
 import Petitem from '../Petitem/Petitem'
 
 
-const PetsList = ({handlerDelete,handlerEdit,petsArr, rows,profile}) => {
+const PetsList = ({closeSearch,handlerDelete,handlerEdit,petsArr, rows,profile}) => {
   return (
     <>
     {petsArr.length !=0 ?
         <div className={[classes.itemslist]} style={{gridTemplateColumns:`repeat(${rows}, 1fr)`}}>
         {petsArr.map((item) => {
           return <Petitem 
+          closeSearch={closeSearch}
           profile={profile}
           handlerDelete={handlerDelete}
           handlerEdit={handlerEdit}

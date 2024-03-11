@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect,useRef, useState } from 'react';
 import { clearUserId, getUserId } from '../../Helper/dataToCookie';
 import { deletePet, getPetsList, getUserById, patchUser } from '../../Helper/serverRequest';
 import accept from '../../assets/accept.svg';
@@ -20,6 +20,8 @@ import {toast } from 'react-toastify';
 
 
 const Profile = () => {
+  const toastId = useRef(null);
+
   const userId = getUserId()
 
   const [userData, setUserData] = useState('')
@@ -40,26 +42,30 @@ const Profile = () => {
   
   //* Get DATA on load component
   useEffect(() => {
-    if (isAuth) {
-      setIsLoading(true)
-      console.log('fetch user')
-      getUserById(userId)
-      .then((res) => {setUserData(res);})
-      .catch((err) => {console.log(err)})
-      .finally(() => {getPetsData()})
-    }
+    setIsLoading(true)
+    setTimeout(() => {
+      if (isAuth) {
+        console.log('fetch user')
+        getUserById(userId)
+        .then((res) => {setUserData(res);})
+        .catch((err) => {console.log(err)})
+        .finally(() => {getPetsData()})
+      }
+    },1500)
   }, [])
   
 
   async function fetchData() {
-    if (isAuth) {
-      setIsLoading(true)
-      console.log('fetch user')
-      getUserById(userId)
-      .then((res) => {setUserData(res);})
-      .catch((err) => {console.log(err)})
-      .finally(() => {getPetsData()})
-    }
+    setIsLoading(true)
+    setTimeout(() => {
+      if (isAuth) {
+        console.log('fetch user')
+        getUserById(userId)
+        .then((res) => {setUserData(res);})
+        .catch((err) => {console.log(err)})
+        .finally(() => {getPetsData()})
+      }
+    },1500)
   }
 
   //* Function to get all data for this user, sorting advertisement by userID
@@ -87,14 +93,21 @@ const Profile = () => {
   }
   //* Handler to delete item when accept
   function acceptDelete() {
-    deletePet(pickedItem)
-      .then((response) => { toast.info("Объявление успешно удалено")})
-      .catch((err) => { console.log(err) })
+    toastId.current = toast.loading("Удаление объявления...", { autoClose: false });
+    setTimeout(() => {
+      deletePet(pickedItem)
+      .then((response) => {
+          toast.update(toastId.current, { render:'Удалено' , type: "success" ,autoClose: 2000, isLoading: false,  });
+      })
+      .catch((err) => {
+          toast.update(toastId.current, { render:'Ошибка удаления' , type: "error" ,autoClose: 2000, isLoading: false,  });
+      })
       .finally(() => {
         setIsDeleteVisible(false)
         getPetsData()
         
       })
+    },1500)
   }
 
   //* Handler to edit item, set EditModal visible
@@ -104,6 +117,8 @@ const Profile = () => {
   }
   
   function handlerPatch() {
+
+    setTimeout(() => {
       patchUser(userData.id,{"first_name": displayName})
       .then((response) => {console.log(response)})
       .catch((err) => {console.log(err)})
@@ -111,6 +126,7 @@ const Profile = () => {
         setIsDisplayNameChange(false)
         fetchData()
       })
+    },1500)
   }
 
 

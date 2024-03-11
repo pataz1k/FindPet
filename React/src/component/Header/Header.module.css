@@ -1,7 +1,9 @@
+@import '../../vars.css';
+
 .header {
     display: flex;
     padding: 18px;
-    background: #fff;
+    background: var(--back-color);
     justify-content: space-around;
     align-items: center;
     font-size: 20px;
@@ -14,7 +16,7 @@
     position: absolute;
     padding: 20px;
     width: 40%;
-    background-color: #F4F4F4;
+    background-color: var(--bg-color);
     box-shadow: 0px 14px 62px 12px rgba(0,0,0,0.1);
     border-radius:17px;
     left: 50%;
@@ -48,7 +50,7 @@
 
 
 .headerBack {
-    background:#fff;
+    background:var(--back-color);
 }
 .menu {
     align-content: end;

@@ -1,5 +1,7 @@
+@import '../../vars.css';
+
 .wrap {
-    background: #fff;
+    background: var(--back-color);
     border-radius: 32px;
     display: flex;
     flex-direction: column;
@@ -25,7 +27,7 @@
     outline: none !important;
 }
 .p {
-    color: #000;
+    color: var(--text-color);
     font-weight: 600;
     margin-bottom: 5px;
     font-size: 16px;

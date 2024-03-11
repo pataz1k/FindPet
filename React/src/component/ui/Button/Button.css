@@ -1,9 +1,11 @@
+@import '../../../vars.css';
+
 .button-style {
     border: 1px solid transparent;
     border-radius: 17px;
     font-family: inherit;
-    background-color: #4565FF;
-    color: #fff;
+    background-color: var(--primary-color);
+    color: var(--back-color);
     cursor: pointer;
     transition: all .3s ease;
 }
@@ -18,17 +20,17 @@
     font-weight: 400;
 }
 .button-style:hover {
-    color: #fff;
-    background-color: #2c4ffa;
+    color: var(--back-color);
+    background-color: var(--primary-color-hover);
 }
 .center {
     text-align: center;
 }
 
 .button-red {
-    background-color:  #ff2727 !important;
+    background-color:  var(--red-button) !important;
 }
 .button-red:hover {
-    background-color:  #e21111 !important;
+    background-color:  var(--red-button-hover) !important;
 }
   

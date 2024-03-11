@@ -5,19 +5,21 @@ import { LoadingContext } from '../../context/LoadingContext'
 import classes from "./Advertisement.module.css"
 
 const Advertisement = () => {
-  const [petsArr,setPetsArr] = useState([]) 
+  const [petsArr,setPetsArr] = useState([])
 
   const {isLoading,setIsLoading} = useContext(LoadingContext)
 
   useEffect(() => {
     setIsLoading(true)
-    getPetsList()
-    .then((response) => {
-      console.log("GET PETS DATA FOR ADVERTISEMENT")
-      setPetsArr(response);
-    })
-    .catch((err) => {console.log(err)})
-    .finally(() => {setIsLoading(false)})
+    setTimeout(() => {
+      getPetsList()
+      .then((response) => {
+        console.log("GET PETS DATA FOR ADVERTISEMENT")
+        setPetsArr(response);
+      })
+      .catch((err) => {console.log(err)})
+      .finally(() => {setIsLoading(false)})
+    }, 1500);
   },[])
 
 

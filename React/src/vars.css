@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --back-color:#fff;
+    --bg-color:#f4f4f4;
+    
+    --primary-color:#4565FF;
+    --primary-color-hover:#2a4dfd;
+
+    --text-color:#000;
+    --text-color-hover:#252525;
+
+    --red-button:#ff2727;
+    --red-button-hover:#e21111;
+
+    --box-shadow:4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    --box-shadow-hover:4px 4px 30px 5px rgba(34, 60, 80, 0.2); 
+
+    --toastify-toast-width: 350px;
+    --toastify-font-family: 'Noto Sans', sans-serif;
+}
+
+
+
+

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import InputMask from "react-input-mask"
 import { getPetById, patchPet } from '../../../Helper/serverRequest'
 import cross from '../../../assets/cross.svg'
@@ -9,6 +9,8 @@ import classes from './EditModal.module.css'
 import {toast } from 'react-toastify';
 
 const EditModal = ({setIsVisible,isVisible,itemID,editCallback}) => {
+
+    const toastId = useRef(null);
   
       const [address,setAddress] = useState('')
       const [features,setFeatures]= useState("")
@@ -30,6 +32,7 @@ const EditModal = ({setIsVisible,isVisible,itemID,editCallback}) => {
   
     //* Edit handler send axios.patch request onClick to edit Item
     function handlerEdit() {
+      toastId.current = toast.loading("Редактирование объявления...", { autoClose: false });
       const data = {
         "description": description,
         "address": address,
@@ -37,14 +40,16 @@ const EditModal = ({setIsVisible,isVisible,itemID,editCallback}) => {
         "number": number
       }
 
-      patchPet(itemID,data)
-      .then((response) => {
-        console.log(response)
-        setIsVisible(false)
-        editCallback()
-        toast.info("Объявление успшно изменено")
-      })
-      .catch((err) => {console.log(err)})
+      setTimeout(() => {
+        patchPet(itemID,data)
+        .then((response) => {
+          console.log(response)
+          setIsVisible(false)
+          editCallback()
+          toast.update(toastId.current, { render:'Изменено' , type: "success" ,autoClose: 2000, isLoading: false,  });
+        })
+        .catch((err) => {toast.update(toastId.current, { render:'Ошибка редактирования' , type: "error" ,autoClose: 2000, isLoading: false,  });})
+      }, 1500);
     }
 
 

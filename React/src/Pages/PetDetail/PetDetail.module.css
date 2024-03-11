@@ -1,3 +1,5 @@
+@import '../../vars.css';
+
 .wrap {
     display: flex;
     flex-direction: column;
@@ -14,10 +16,10 @@
     justify-content: space-around;
     gap: 20px;
     align-items: center;
-    background: #fff;
+    background: var(--back-color);
     height: 40vh;
     width: 50vw;
-    box-shadow: 4px 4px 15px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: var(--box-shadow);
 }
 .petImage {
     border-radius:17px;
@@ -32,4 +34,7 @@
 .address_image {
     width: 20px;
     height: 20px;
+}
+.blockTitle {
+    font-size: 15px;
 }

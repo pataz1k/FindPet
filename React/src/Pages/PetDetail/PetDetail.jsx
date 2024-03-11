@@ -16,15 +16,17 @@ const PetDetail = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        getPetById(petID)
-        .then((res) => {
-            setPet(res);
-            getUserById(res.user)
-            .then((res) => {setUser(res);console.log(res)})
+        setTimeout(() => {
+            getPetById(petID)
+            .then((res) => {
+                setPet(res);
+                getUserById(res.user)
+                .then((res) => {setUser(res);console.log(res)})
+                .catch((err) => {console.log(err)})
+            })
             .catch((err) => {console.log(err)})
-        })
-        .catch((err) => {console.log(err)})
-        .finally(setIsLoading(false))
+            .finally(setIsLoading(false))
+        }, 1500);
     
     }, [])
 
@@ -46,14 +48,14 @@ const PetDetail = () => {
                 <img className={classes.petImage} src={pet.image_url} alt="pet image" />
                 <div className={classes.textBlock}>
                     <div className={classes.petInfo}>
-                        <h5>Информация о питомце:</h5>
+                        <h5 className={classes.blockTitle}>Информация о питомце:</h5>
                         <p className={classes.features}><b>Особенности:</b>  {pet.features}</p>
                         <p className={classes.description}><b>Описание:</b> {pet.description}</p>
                         <p className={classes.address}><img src={loc_icon} className={classes.address_image}/> {pet.address}</p>
                         <p className={classes.number}><b>Номер телефона:</b> <b>{pet.number}</b></p>
                     </div>
                     <div className={classes.userInfo}>
-                        <h5>Информация о пользователе:</h5>
+                        <h5 className={classes.blockTitle}>Информация о пользователе:</h5>
                         <p><b>Имя пользователя:</b> {user.first_name}</p>
                         <p><b>Email:</b> {user.email}</p>
                     </div>

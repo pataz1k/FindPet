@@ -12,9 +12,9 @@ const Main = () => {
             <div className="what-happened">
                 <h1>Что случилось?</h1>
                 <div className="what-happened_button">
+
                     <Button to={"/create-ad"} style={"button-default"}>Я потерял питомца</Button>
                     <Button to={"/create-ad"} style={"button-default"}>Я нашел питомца</Button>
-                    <Button onClick={() => {toast.info('TEST TOAST')}} style={"button-default"}>TEST TOAST</Button>
                 </div>
             </div>
         </div>

@@ -1,3 +1,5 @@
+@import '../../../vars.css';
+
 .input {
     border: none;
     width: 90%;
@@ -6,7 +8,7 @@
     padding: 17px 13px;
     border-radius: 17px;
     height: 20px;
-    background: #E7E7E7;
+    background: var(--bg-color);
 }
 .input:focus {
     outline: none !important;

@@ -1,3 +1,4 @@
+@import '../../vars.css';
 
 .wrap p {
     margin: 0;
@@ -14,7 +15,7 @@
     padding: 20px;
     border-radius: 17px;
     gap: 20px;
-    background-color: #fff;
+    background-color: var(--back-color);
 }
 .wrap {
     font-size: 20px;
@@ -27,7 +28,7 @@
     margin: 60px;
     border-radius: 17px;
     gap: 20px;
-    background-color: #fff;
+    background-color: var(--back-color);
 }
 .pfp {
     width: 70px;

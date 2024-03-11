@@ -21,6 +21,9 @@ const Authorization = () => {
 
   const {isAuth,setIsAuth} = useContext(AuthContext)
 
+  const checkRussianLetters = /^[\u0400-\u04FF]+$/;
+
+
   function clearInput() {
     setEmail("")
     setPassword("")
@@ -28,32 +31,38 @@ const Authorization = () => {
   }
 
   async function registerHandler() {
+    
     let data = {
       "username": username,
       "password": password,
       "email": email
     }
     if (!username || !password || !email) {
-      toast.error("Поля не могут быть пустыми")
+      toast.error('Поля должны быть заполнены')
     } else {
-      signUp(data)
-      .then((response) => {
-        console.log(response)
-        if (!response.token) {
-          if(response.username) {
-            toast.error("Пользователь с такими именем уже существует")
-          } else if (response.email) {
-            toast.error("Введите коректный email")
-          } else if (response.password) {
-            toast.error("Введите коректный пароль")
+      if (checkRussianLetters.test(password)) {
+        toast.error('Пароль не должен содержать русских букв')
+      } else {
+        signUp(data)
+        .then((response) => {
+          console.log(response)
+          if (!response.token) {
+            if(response.username) {
+              toast.error("Пользователь с такими именем уже существует")
+            } else if (response.email) {
+              toast.error("Введите коректный email")
+            } else if (response.password) {
+              toast.error("Введите коректный пароль")
+            }
+          } else {
+            toast.success("Успешная регистрация")
+            setIsRegister(false)
           }
-        } else {
-          toast.success("Успешная регистрация")
-          setIsRegister(false)
-        }
-  
-      })
-      .catch((error) => console.log(error));
+    
+        })
+        .catch((error) => console.log(error));
+      }
+
     }
 
 
@@ -64,14 +73,26 @@ const Authorization = () => {
       "username": username,
       "password": password
     }
-    login(data)
-    .then((response) => {
-      setIsAuth(true)
-      setUserId(response.user.id)
-      navigate('/profile')
-    })
-    .catch((error) => toast.error("Неверное имя пользователя или пароль"));
-    clearInput();
+
+    if (!username || !password ) {
+      toast.error('Поля должны быть заполнены')
+    } else {
+      if (checkRussianLetters.test(password)) {
+        toast.error('Пароль не должен содержать русских букв')
+      } else { 
+        login(data)
+        .then((response) => {
+          setIsAuth(true)
+          setUserId(response.user.id)
+          toast.success("Успешный вход")
+          navigate('/profile')
+        })
+        .catch((error) => toast.error("Неверное имя пользователя или пароль"));
+        clearInput();
+      }
+    }
+
+
   }
 
 
