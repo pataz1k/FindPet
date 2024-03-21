@@ -14,6 +14,12 @@ export interface User {
     password: string,
     email: string
 }
+export interface requestUser {
+    username: string,
+    password: string,
+    email?: string,
+
+}
 export const defaultUser = {
     "id": '',
     "first_name": "",

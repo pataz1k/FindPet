@@ -1,13 +1,14 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { setUserId } from '../../Helper/dataToCookie';
 import { login, signUp } from '../../Helper/serverRequest';
 import Button from '../../component/ui/Button/Button';
 import Input from '../../component/ui/Input/Input';
 import { AuthContext } from '../../context/AuthContext';
 import classes from './Authorization.module.css';
-import {toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { requestUser } from '../../Helper/interfaces';
 
 const Authorization = () => {
 
@@ -32,7 +33,7 @@ const Authorization = () => {
 
   async function registerHandler() {
     
-    let data = {
+    let data: requestUser = {
       "username": username,
       "password": password,
       "email": email
@@ -69,7 +70,7 @@ const Authorization = () => {
     clearInput()
   }
   async function loginHandler() {
-    let data = {
+    let data: requestUser = {
       "username": username,
       "password": password
     }
