@@ -83,11 +83,5 @@ Here are the main dependencies used in the Python Django part of the project:
 
 Contributions are welcome! If you find any issues or want to suggest enhancements, feel free to open an issue or submit a pull request.
 
-## License
 
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-Feel free to customize this README further according to your project's needs!
 
